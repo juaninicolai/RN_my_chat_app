@@ -1,10 +1,34 @@
 import { Input, Button } from "@rneui/base";
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet } from "react-native";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../config/firebase';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const signIn = () => {
+    signInWithEmailAndPassword(auth, email, password)
+    .catch((error) => {
+      const errorMessage = error.message;
+      alert(errorMessage)
+    });
+  };
+
+  useEffect(()=> {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navigation.replace('Chat');
+      } else {
+        navigation.canGoBack() &&
+        navigation.popToTop();
+      }
+    });
+    return unsubscribe;
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <Input
@@ -22,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={text => setPassword(text)}
         secureTextEntry
       />
-      <Button title="Sign in" style={styles.button} />
+      <Button title="Sign in" style={styles.button} onPress={signIn}/>
       <Button
         title="Register"
         style={styles.button}

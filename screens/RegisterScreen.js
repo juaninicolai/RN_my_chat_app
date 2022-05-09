@@ -1,39 +1,35 @@
 import { Input, Button } from "@rneui/base";
 import { useState } from "react";
-import { View, StyleSheet } from "react-native";
-import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { View, StyleSheet, Alert } from "react-native";
+import { auth } from '../config/firebase';
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [imageURL, setImageUrl] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
+  
   const register = () => {
-    createUserWithEmailAndPassword(email, password)
-      .then(userCredential => {
-        //signed in
-        const user = userCredential.user;
-        user
-          .updateProfile({
-            displayName: name,
-            photoURL: imageURL
-              ? imageURL
-              : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png",
-          })
-          .then(function () {
-            //update
-          })
-          .catch(function (error) {
-            //error
-          });
+    if (email !== '' && password !== ''){
+      createUserWithEmailAndPassword(auth,email,password)
+      .then((res) => {
+        updateProfile(res.user, {
+          displayName: name, 
+          photoURL: imageURL ? imageURL : "https://example.com/jane-q-user/profile.jpg"
+        }).then(() => {
+          // Profile updated!
+          console.log("success");
+        }).catch((error) => {
+          // An error occurred
+        });  
+        
       })
-      .catch(error => {
-        let errorMessage = error.message;
-        alert(errorMessage);
-      });
-  };
+      .catch((err) => Alert.alert("signup error", err.message))
+      navigation.popToTop();
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -64,7 +60,7 @@ const RegisterScreen = () => {
         label="Profile Picture"
         leftIcon={{ type: "material", name: "face" }}
         value={imageURL}
-        onChangeText={text => setImageUrl(text)}
+        onChangeText={text => setImageURL(text)}
       />
 
       <Button title="Register" style={styles.button} onPress={register} />
