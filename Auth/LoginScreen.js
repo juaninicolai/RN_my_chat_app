@@ -1,6 +1,6 @@
 import { Input, Button } from "@rneui/base";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -18,7 +18,7 @@ const LoginScreen = ({ navigation }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
-        navigation.replace("Home");
+        navigation.replace("Overview");
       } else {
         navigation.canGoBack() && navigation.popToTop();
       }
@@ -43,6 +43,7 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={text => setPassword(text)}
         secureTextEntry
       />
+      <Text>{"\n"}</Text>
       <Button title="Sign in" style={styles.button} onPress={signIn} />
       <Button
         title="Register"
@@ -54,6 +55,7 @@ const LoginScreen = ({ navigation }) => {
         style={styles.button}
         onPress={() => navigation.navigate("Forgot")}
       ></Button>
+      <Image source={require("../assets/cbs_logo.png")}></Image>
     </View>
   );
 };
@@ -69,5 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 10,
+    backgroundColor: "#FFFFFF",
   },
 });

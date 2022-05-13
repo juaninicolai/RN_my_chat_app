@@ -1,6 +1,6 @@
 import { Input, Button } from "@rneui/base";
 import { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, Image } from "react-native";
 import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
@@ -65,6 +65,7 @@ const RegisterScreen = ({ navigation }) => {
       />
 
       <Button title="Register" style={styles.button} onPress={register} />
+      <Image source={require("../assets/cbs_logo.png")}></Image>
     </View>
   );
 };
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 10,
+    backgroundColor: "#FFFFFF",
   },
 });
 
