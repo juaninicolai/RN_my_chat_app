@@ -9,9 +9,10 @@ const ForgotPassword = ({ navigation }) => {
 
   sendPasswordResetEmail(auth, email)
     .then(() => {})
-    .catch();
+    .catch(() => {});
 
   return (
+    <View style={styles.parentContainer}>
     <View style={styles.container}>
       <Input
         placeholder="Enter your email"
@@ -26,7 +27,9 @@ const ForgotPassword = ({ navigation }) => {
         style={styles.button}
         onPress={() => navigation.navigate("Login")}
       />
-      <Image source={require("../assets/cbs_logo.png")}></Image>
+      <Image style={{marginTop: 100}}
+      source={require("../assets/cbs_logo.png")}></Image>
+    </View>
     </View>
   );
 };
@@ -37,11 +40,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    flex: 1,
+    flex: 2,
+    marginTop: 200,
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
   },
+  parentContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  }
 });
 
 export default ForgotPassword;

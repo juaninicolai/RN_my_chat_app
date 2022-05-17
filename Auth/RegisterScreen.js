@@ -33,6 +33,7 @@ const RegisterScreen = ({ navigation }) => {
   };
 
   return (
+    <View style={styles.parentContainer}>
     <View style={styles.container}>
       <Input
         placeholder="Enter your name"
@@ -67,6 +68,8 @@ const RegisterScreen = ({ navigation }) => {
       <Button title="Register" style={styles.button} onPress={register} />
       <Image source={require("../assets/cbs_logo.png")}></Image>
     </View>
+    </View>
+  
   );
 };
 
@@ -76,11 +79,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    flex: 1,
+    marginTop: 70,
+    flex: 2,
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
   },
+  parentContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+  }
 });
 
 export default RegisterScreen;

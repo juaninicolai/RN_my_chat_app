@@ -27,6 +27,7 @@ const LoginScreen = ({ navigation }) => {
   }, []);
 
   return (
+    <View style={styles.parentContainer}>
     <View style={styles.container}>
       <Input
         placeholder="Enter your email"
@@ -43,7 +44,6 @@ const LoginScreen = ({ navigation }) => {
         onChangeText={text => setPassword(text)}
         secureTextEntry
       />
-      <Text>{"\n"}</Text>
       <Button title="Sign in" style={styles.button} onPress={signIn} />
       <Button
         title="Register"
@@ -53,9 +53,11 @@ const LoginScreen = ({ navigation }) => {
       <Button
         title="Forgot password"
         style={styles.button}
-        onPress={() => navigation.navigate("Forgot")}
+        onPress={() => navigation.navigate("Forgot Password")}
       ></Button>
-      <Image source={require("../assets/cbs_logo.png")}></Image>
+      <Image style={{marginTop: 50}}
+      source={require("../assets/cbs_logo.png")}></Image>
+    </View>
     </View>
   );
 };
@@ -68,9 +70,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   container: {
-    flex: 1,
+    marginTop: 60,
+    flex: 2,
     alignItems: "center",
     padding: 10,
     backgroundColor: "#FFFFFF",
   },
+  parentContainer: {
+    flex: 1,
+    backgroundColor: "#FFFFFF"
+  }
 });
