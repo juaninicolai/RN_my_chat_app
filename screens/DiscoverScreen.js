@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from "react-native";
 const FeedScreen = () => {
   return (
     <View style={styles.container}>
-      <Text>Feed and News</Text>
+      <Text>Discover</Text>
     </View>
   );
 };
