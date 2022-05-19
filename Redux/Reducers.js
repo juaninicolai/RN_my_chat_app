@@ -15,8 +15,6 @@ export const initialState = {
 	photoURL: "",
 };
 
-console.log(initialState);
-
 function userReducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER_EMAIL:
